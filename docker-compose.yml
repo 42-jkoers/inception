@@ -1,0 +1,27 @@
+version: "3.9"
+
+
+
+services:
+  nginx:
+    build: ./srcs/nginx/
+    ports:
+      - "443:443"
+    volumes:
+      - ./webroot/:/var/www/
+    restart: unless-stopped
+
+  mariadb:
+    build: ./srcs/mariadb/
+    restart: unless-stopped
+
+  wordpress:
+    build: ./srcs/wordpress/
+    volumes:
+      - ./webroot/:/var/www/
+    restart: unless-stopped
+
+# volumes:
+#   type: bind
+#   source: /tmp/webroot/
+#   target: /var/www/

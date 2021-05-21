@@ -1,25 +1,30 @@
-version: "3.9"
+version: "3"
 
 
 
 services:
-  nginx:
-    build: ./srcs/nginx/
-    ports:
-      - "443:443"
-    volumes:
-      - ./webroot/:/var/www/
-    restart: unless-stopped
 
   mariadb:
     build: ./srcs/mariadb/
-    restart: unless-stopped
+    # restart: unless-stopped
 
   wordpress:
     build: ./srcs/wordpress/
     volumes:
       - ./webroot/:/var/www/
-    restart: unless-stopped
+    ports:
+      - "9000:9000"
+
+  nginx:
+    depends_on:
+      - wordpress
+    build: ./srcs/nginx/
+    ports:
+      - "443:443"
+    volumes:
+      - ./webroot/:/var/www/
+    # restart: unless-stopped
+    # restart: unless-stopped
 
 # volumes:
 #   type: bind

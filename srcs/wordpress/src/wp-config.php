@@ -3,7 +3,7 @@
 define( 'DB_NAME', 'wordpress' );
 define( 'DB_USER', 'joppe' );
 define( 'DB_PASSWORD', 'definitelynotasecurityrisk' );
-define( 'DB_HOST', 'localhost' );
+define( 'DB_HOST', 'mariadb' );
 define( 'DB_CHARSET', 'utf8mb4' );
 
 // The Database Collate type. Don't change this if in doubt.
@@ -19,7 +19,6 @@ define('SECURE_AUTH_SALT', 'asuperverysecuresalthatnoonewilleverguessorhackintoy
 define('LOGGED_IN_SALT',   'asuperverysecuresalthatnoonewilleverguessorhackintoyouknowyeahmm');
 define('NONCE_SALT',       'asuperverysecuresalthatnoonewilleverguessorhackintoyouknowyeahmm');
 
-// WordPress Database Table prefix.
 $table_prefix = 'wp_';
 
 define( 'WP_DEBUG', true );

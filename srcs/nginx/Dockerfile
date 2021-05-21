@@ -5,9 +5,11 @@ RUN apt-get update && \
 
 RUN apt-get install nginx -y
 
-WORKDIR /tmp/src/
+WORKDIR /tmp/
+ENV BUILDDIR=/tmp/build/
+RUN mkdir ${BUILDDIR}
 
-COPY src/ /tmp/src/
+COPY src/ ${WORKDIR}
 
 RUN chmod 770 mkcert-v1.4.3-linux-amd64 && \
 	./mkcert-v1.4.3-linux-amd64 -install && \
@@ -19,12 +21,17 @@ RUN chmod 770 mkcert-v1.4.3-linux-amd64 && \
 
 RUN rm -rf /etc/nginx/sites-enabled/* && \
 	mv nginx.conf /etc/nginx/sites-available/nginx.conf && \
-	ln -fs /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/ && \
-	nginx -t
+	ln -fs /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
+	# nginx -t
 
-RUN mv index.html /var/www/
+RUN mv index.html ${BUILDDIR}
 
 EXPOSE 443
 
-ENTRYPOINT [ "nginx" ]
-CMD ["-g", "daemon off;"]
+RUN chmod -R 777 ${BUILDDIR}
+
+CMD cp -a ${BUILDDIR}. /var/www/ && \
+	nginx -g 'daemon off;'
+
+# ENTRYPOINT [ "nginx" ]
+# CMD ["-g", "daemon off;"]

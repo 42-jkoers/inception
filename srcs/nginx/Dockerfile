@@ -24,7 +24,7 @@ RUN rm -rf /etc/nginx/sites-enabled/* && \
 	ln -fs /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
 	# nginx -t
 
-RUN mv index.html ${BUILDDIR}
+RUN mv index.html partyparrot.gif ${BUILDDIR}
 
 EXPOSE 443
 

@@ -19,4 +19,4 @@ RUN sed 's/bind-address            = 127.0.0.1/bind-address            = 0.0.0.0
 EXPOSE 3306
 # ENTRYPOINT [ "/bin/sh" ]
 # ENTRYPOINT [ "mariadb" ]
-CMD service mysql start && tail -f /dev/null
+CMD mysqld

@@ -1,19 +1,16 @@
 version: "3"
 
-
-
 services:
 
   mariadb:
     build: ./srcs/mariadb/
-    # restart: unless-stopped
+    restart: unless-stopped
 
   wordpress:
     build: ./srcs/wordpress/
     volumes:
-      - ./webroot/:/var/www/
-    ports:
-      - "9000:9000"
+      - ${WEBROOT_PATH}:/var/www/
+    restart: unless-stopped
 
   nginx:
     depends_on:
@@ -22,11 +19,10 @@ services:
     ports:
       - "443:443"
     volumes:
-      - ./webroot/:/var/www/
-    # restart: unless-stopped
-    # restart: unless-stopped
+      - ${WEBROOT_PATH}:/var/www/
+    restart: unless-stopped
 
-# volumes:
-#   type: bind
-#   source: /tmp/webroot/
-#   target: /var/www/
+  test:
+    build: ./srcs/test/
+    env_file:
+      - .env

@@ -1,10 +1,11 @@
 version: "3"
 
 services:
-
   mariadb:
     build: ./srcs/mariadb/
     restart: unless-stopped
+    volumes:
+      - ${WEBROOT_PATH}/mariadb/:/var/db/mysql/
 
   wordpress:
     build: ./srcs/wordpress/
@@ -21,8 +22,3 @@ services:
     volumes:
       - ${WEBROOT_PATH}:/var/www/
     restart: unless-stopped
-
-  test:
-    build: ./srcs/test/
-    env_file:
-      - .env
